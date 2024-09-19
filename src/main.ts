@@ -1,4 +1,4 @@
-import { Logger } from '@nestjs/common'
+import { Logger, ValidationPipe } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
 import { NestExpressApplication } from '@nestjs/platform-express'
@@ -10,7 +10,8 @@ async function bootstrap() {
         cors: true,
     })
     app.setViewEngine('hbs')
-    //
+    // white list: DTO validate 
+    app.useGlobalPipes(new ValidationPipe({whitelist: true, forbidNonWhitelisted: true}))
     const config = app.get<ConfigService>(ConfigService)
     //
     const port = config.get<number>('SERVER_PORT')
