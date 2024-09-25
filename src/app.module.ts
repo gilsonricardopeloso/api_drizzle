@@ -4,6 +4,7 @@ import { AcceptLanguageResolver, I18nModule, QueryResolver } from 'nestjs-i18n'
 import * as path from 'path'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
+import { DbModule } from './db/db.module'
 
 @Module({
     imports: [
@@ -16,6 +17,7 @@ import { AppService } from './app.service'
             resolvers: [{ use: QueryResolver, options: ['lang'] }, AcceptLanguageResolver],
         }),
         ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' }), // Loads .env file
+        DbModule,
     ],
     controllers: [AppController],
     providers: [AppService],
