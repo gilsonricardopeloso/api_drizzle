@@ -7,11 +7,11 @@ services:
         image: wxn_postgres
         restart: always
         environment:
-            POSTGRES_USER: $DB_USER
-            POSTGRES_PASSWORD: $DB_PASS
-            POSTGRES_DB: $DB_NAME
+            POSTGRES_USER: ${DB_USER?err}
+            POSTGRES_PASSWORD: ${DB_PASS?err}
+            POSTGRES_DB: ${DB_NAME?err}
         ports:
-            - $DB_PORT:5432
+            - ${DB_PORT?err}:5432
         volumes:
             - ./docker/postgres/data:/var/lib/postgresql/data
             - ./docker/postgres/config:/etc/postgresql

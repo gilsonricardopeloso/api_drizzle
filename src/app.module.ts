@@ -2,9 +2,11 @@ import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { AcceptLanguageResolver, I18nModule, QueryResolver } from 'nestjs-i18n'
 import * as path from 'path'
-import { AppController } from './app.controller'
-import { AppService } from './app.service'
-import { DbModule } from './db/db.module'
+import { AppController } from '@/app.controller'
+import { AppService } from '@/app.service'
+import { AuthModule } from '@/auth/auth.module'
+import { UserModule } from '@/user/user.module'
+import { DrizzleModule } from '@/drizzle/drizzle.module'
 
 @Module({
     imports: [
@@ -17,7 +19,9 @@ import { DbModule } from './db/db.module'
             resolvers: [{ use: QueryResolver, options: ['lang'] }, AcceptLanguageResolver],
         }),
         ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' }), // Loads .env file
-        DbModule,
+        AuthModule,
+        UserModule,
+        DrizzleModule,
     ],
     controllers: [AppController],
     providers: [AppService],
