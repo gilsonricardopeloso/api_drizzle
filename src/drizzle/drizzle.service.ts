@@ -1,16 +1,3 @@
-// src/drizzle/drizzle.module.ts
-import { Module, Global } from '@nestjs/common'
-import { ConfigService } from '@nestjs/config'
-import { DrizzleService } from './drizzle.service'
-
-@Global()
-@Module({
-    providers: [DrizzleService],
-    exports: [DrizzleService],
-})
-export class DrizzleModule {}
-
-// src/drizzle/drizzle.service.ts
 import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { drizzle } from 'drizzle-orm/node-postgres'
@@ -28,7 +15,7 @@ export class DrizzleService implements OnModuleInit, OnModuleDestroy {
             host: this.configService.get('DB_HOST'),
             port: this.configService.get('DB_PORT'),
             user: this.configService.get('DB_USER'),
-            password: this.configService.get('DB_PASSWORD'),
+            password: this.configService.get('DB_PASS'),
             database: this.configService.get('DB_NAME'),
         })
 
