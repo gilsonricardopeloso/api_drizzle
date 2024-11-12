@@ -24,11 +24,11 @@ export const users = pgTable('users', {
     password: text('password').notNull(),
     isEmailVerified: boolean('is_email_verified').notNull(),
     role: userRole('role').default('user'),
+    isDisabled: boolean('is_disabled').notNull().default(false),
     createdAt: timestamp('created_at').notNull().defaultNow(),
     updatedAt: timestamp('updated_at')
         .notNull()
         .$onUpdate(() => new Date()),
-    isDisabled: boolean('is_disabled').notNull().default(false),
 })
 
 export type InsertUser = InferInsertModel<typeof users>
