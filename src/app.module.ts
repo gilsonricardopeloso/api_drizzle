@@ -7,7 +7,14 @@ import { AppService } from '@/app.service'
 import { AuthModule } from '@/auth/auth.module'
 import { UserModule } from '@/user/user.module'
 import { DrizzleModule } from '@/drizzle/drizzle.module'
+import * as Joi from 'joi'
+import { AWSModule } from './aws/aws.module'
 
+export const envValidationSchema = Joi.object({
+    AWS_ACCESS_KEY: Joi.string().required(),
+    AWS_SECRET_ACCESS_KEY: Joi.string().required(),
+    DEFAULT_REGION_NAME: Joi.string().required(),
+})
 @Module({
     imports: [
         I18nModule.forRoot({
@@ -22,6 +29,7 @@ import { DrizzleModule } from '@/drizzle/drizzle.module'
         AuthModule,
         UserModule,
         DrizzleModule,
+        AwsModule,
     ],
     controllers: [AppController],
     providers: [AppService],
